@@ -3,6 +3,8 @@ import java.util.Scanner;
 public class Lab2 {
     /**
      * Assignment 2 in the course Inledande programmering med Java VT2021.
+     *
+     * @author Gabriel Ellebrink
      */
     public static void main(String[] args) {
         // Scanner to read input.
