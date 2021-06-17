@@ -1,6 +1,9 @@
 import java.util.Scanner;
 
 public class Lab2 {
+    /**
+     * Assignment 2 in the course Inledande programmering med Java VT2021.
+     */
     public static void main(String[] args) {
         // Scanner to read input.
         Scanner scanner = new Scanner(System.in);
@@ -11,12 +14,15 @@ public class Lab2 {
             // Print 1st instructions.
             System.out.println("Skriv in en mening:");
             try {
+                // Get input.
                 sentence = scanner.nextLine();
+                // Validate length of input.
                 if (sentence.length() == 0) {
                     throw new java.lang.RuntimeException("Felaktig input.");
                 }
                 break;
             }
+            // Catch error and print error message.
             catch (java.lang.RuntimeException e) {
                 System.out.println("Felaktig input. Ange en mening.");
             }
@@ -29,7 +35,9 @@ public class Lab2 {
             // Print 2nd instructions.
             System.out.println("Skriv in ett tecken:");
             try {
+                // Get input.
                 input = scanner.nextLine();
+                // Validate length of input.
                 if (input.length() == 1) {
                     character = input.charAt(0);
                 }
@@ -38,6 +46,7 @@ public class Lab2 {
                 }
                 break;
             }
+            // Catch error and print error message.
             catch (java.lang.RuntimeException e) {
                 System.out.println("Felaktig input. Ange ett tecken.");
             }
