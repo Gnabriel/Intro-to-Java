@@ -12,5 +12,7 @@ public class Lab1 {
         double kmh = 1.852 * Float.parseFloat(input);
         // Print answer.
         System.out.println(input + " knop motsvarar " + kmh + " km/h");
+        // Close scanner.
+        scanner.close();
     }
 }

@@ -67,5 +67,8 @@ public class Lab2 {
         System.out.println(String.format("Tecknet %s förekommer %s gånger.", character, charCount));
         System.out.println(String.format("Första gången på indexplats %s.", sentence.indexOf(character)));
         System.out.println(String.format("Sista gången på indexplats %s.", sentence.lastIndexOf(character)));
+        
+        // Close scanner.
+        scanner.close();
     }
 }
