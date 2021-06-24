@@ -1,6 +1,7 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "c:\\Users\\Gabriel\\Downloads\\commons-text-1.9-bin\\commons-text-1.9\\commons-text-1.9.jar"
+        "c:\\Users\\Gabriel\\Downloads\\commons-text-1.9-bin\\commons-text-1.9\\commons-text-1.9.jar",
+        "libraries/commons-text-1.9/commons-text-1.9.jar"
     ]
 }
