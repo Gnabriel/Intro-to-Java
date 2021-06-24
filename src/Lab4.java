@@ -7,6 +7,12 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Lab4 {
+    /**
+     * Assignment 4 in the course Inledande programmering med Java VT2021.
+     *
+     * @author Gabriel Ellebrink
+     */
+
     public static class Glossary {
         Map<String, List<String>> glossaryDict;
         List<String> glossaryWords;
