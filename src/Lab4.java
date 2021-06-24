@@ -2,10 +2,16 @@ import java.util.Map;
 import java.util.HashMap;
 import org.apache.commons.text.similarity.LevenshteinDistance;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Lab4 {
-    public class Glossary {
-        Map<String, String[]> glossaryDict;
+    public static class Glossary {
+        Map<String, List<String>> glossaryDict;
+        List<String> glossaryWords;
+        int currentWord;
+        int wordCount;
 
         public Glossary() {
             /**
@@ -13,9 +19,12 @@ public class Lab4 {
              * along with its translation(s).
              */
             this.glossaryDict = new HashMap<>();
+            this.glossaryWords = new ArrayList<>();
+            this.currentWord = 0;
+            this.wordCount = 0;
         }
 
-        public void addWord(String word, String[] translations) {
+        public void addWord(String word, List<String> translations) {
             /**
              * Adds a word with its translation(s) to the glossary.
              * 
@@ -23,6 +32,31 @@ public class Lab4 {
              * @param translations      translation(s) of the word
              */
             this.glossaryDict.put(word, translations);
+            this.glossaryWords.add(word);
+            this.wordCount++;
+        }
+
+        public String getNextWord() {
+            /**
+             * Gets the next word in the glossary.
+             * 
+             * @return      next String in glossary
+             */
+            String nextWord = "";
+            if (this.currentWord <= this.wordCount) {
+                nextWord = this.glossaryWords.get(this.currentWord);
+                this.currentWord++;
+            }
+            return nextWord;
+        }
+
+        public List<String> getAnswer(String word) {
+            /**
+             * Gets the correct translation(s) of a word in the glossary.
+             * 
+             * @return      correct translation(s) of a word
+             */
+            return this.glossaryDict.get(word);
         }
         
         public float checkGuess(String word, String guess) {
@@ -37,9 +71,9 @@ public class Lab4 {
              *                  i.e within 1 Levenshtein Distance;
              *                  0.0f otherwise
              */
-            String[] correctTranslations = this.glossaryDict.get(word);
+            List<String> correctTranslations = this.glossaryDict.get(word);
             for (String translation : correctTranslations) {
-                if (guess == translation) {
+                if (guess.equalsIgnoreCase(translation)) {
                     return 1.0f;
                 }
                 else if (partialCheck(translation, guess)) {
@@ -68,19 +102,101 @@ public class Lab4 {
         }
     }
 
-    public class TranslationExcercise {
+    public static class TranslationExcercise {
         Glossary glossary;
+        Scanner scanner;
 
         public TranslationExcercise() {
-            glossary = new Glossary();
+            /**
+             * Class to create translations excercises by building
+             * glossaries and getting user inputs and validating them.
+             */
+            this.glossary = new Glossary();
+            this.scanner = new Scanner(System.in);
+            buildGlossary();
+        }
 
-            // glossary.addWord("bil", Arrays.asList("car"));
-            // TODO: Fortsätt här!
+        public void buildGlossary() {
+            /**
+             * Creates a glossary by adding words with its translation(s).
+             */
+            this.glossary.addWord("bil", Arrays.asList("car"));
+            this.glossary.addWord("hus", Arrays.asList("house"));
+            this.glossary.addWord("springa", Arrays.asList("run"));
+            this.glossary.addWord("blå", Arrays.asList("blue"));
+            this.glossary.addWord("baka", Arrays.asList("bake"));
+            this.glossary.addWord("hoppa", Arrays.asList("jump"));
+            this.glossary.addWord("simma", Arrays.asList("swim"));
+            this.glossary.addWord("måne", Arrays.asList("moon"));
+            this.glossary.addWord("väg", Arrays.asList("road"));
+            this.glossary.addWord("snäll", Arrays.asList("kind"));
+        }
+
+        public String getInput(String prompt) {
+            /**
+             * Gets an input from the user.
+             * @param prompt        user instructions for the input
+             * @return              String provided by the user
+             */
+            String userInput;
+            while (true) {
+                // Print input instructions.
+                System.out.println(prompt);
+                try {
+                    // Get input.
+                    userInput = scanner.nextLine();
+                    break;
+                }
+                // Catch error and print error message.
+                catch (Exception e) {
+                    System.out.println("Ogiltigt värde. Ange ett heltal.");
+                    this.scanner.nextLine();
+                }
+            }
+            return userInput;
+        }
+
+        public void englishExcercise() {
+            /**
+             * Starts the glossary excercise for English words.
+             */
+            System.out.println("** GLOSÖVNING - ENGELSKA **");
+            System.out.println("Skriv det engelska ordet. Avsluta programmet genom att skriva Q.");
+            String userInput;
+            List<String> answer;
+            float guessResult;
+            int numGuesses = 0;
+            int numCorrectGuesses = 0;
+            for (int i = 0; i < this.glossary.wordCount; i++) {
+                String word = this.glossary.getNextWord();
+                userInput = getInput(String.format("%s : ", word));
+                guessResult = this.glossary.checkGuess(word, userInput);
+                answer = this.glossary.getAnswer(word);
+
+                if (userInput.equalsIgnoreCase("Q")) {
+                    break;
+                }
+
+                numGuesses++;
+
+                if (guessResult == 1f) {
+                    numCorrectGuesses++;
+                    System.out.println(String.format("Korrekt! %s rätt av %s ord.", numCorrectGuesses, numGuesses));                    
+                }
+                else if (guessResult == 0.5f) {
+                    System.out.println(String.format("Nästan rätt. Korrekt svar är %s.", answer.get(0)));
+                }
+                else {
+                    System.out.println(String.format("Fel. Korrekt svar är %s.", answer.get(0)));
+                }
+            }
+            System.out.println(String.format("Du svarade på totalt %s glosor och hade %s rätt. Välkommen åter!", numCorrectGuesses, numGuesses));    
+            this.scanner.close();
         }
     }
+
     public static void main(String[] args) {
-        System.out.println("test");
+        TranslationExcercise excercise = new TranslationExcercise();
+        excercise.englishExcercise();
     }
 }
-
-
