@@ -1,6 +1,7 @@
 package lab5;
 
 import java.util.Scanner;
+import java.util.List;
 /**
  * A command line user interface for a movie database.
  */
@@ -74,12 +75,9 @@ public class MovieDatabaseUI {
 	 */
 	private void searchTitle() {
 		System.out.print("Ange sökord: ");
-		String title = _scanner.nextLine().trim();
-
-		//TODO: Add call to search movie database based on input
-				
-		//TODO: Present results to user
-		
+		String titleQuery = _scanner.nextLine().trim();
+		List<List<String>> moviesFound = this._movieDb.searchTitle(titleQuery);
+		this.printMovies(moviesFound);	
 	}
 
 	/**
@@ -87,12 +85,9 @@ public class MovieDatabaseUI {
 	 * database and present the search result.
 	 */
 	private void searchReviewScore() {		
-		int review = getNumberInput(_scanner, 1, 5, "Ange minimibetyg (1 - 5): ");
-
-		//TODO: Add call to search movie database based on input
-				
-		//TODO: Present results to user	
-		
+		int reviewQuery = getNumberInput(_scanner, 1, 5, "Ange minimibetyg (1 - 5): ");
+		List<List<String>> moviesFound = this._movieDb.searchRating(reviewQuery);
+		this.printMovies(moviesFound);	
 	}
 
 	/**
@@ -118,5 +113,23 @@ public class MovieDatabaseUI {
 				"3. Lägg till film\n" +
 				"-------------------\n" + 
 				"4. Avsluta";
-	}	
+	}
+
+	/**
+	 * Formats and prints out title and rating of a list of movies.
+	 * 
+	 * @param movies		list of movies to print
+	*/
+	private void printMovies(List<List<String>> movies) {
+		if (movies.size() > 0) {
+			for (List<String> movieInfo : movies) {
+				String title = movieInfo.get(0);
+				String rating = movieInfo.get(1);
+				System.out.println(String.format("Titel: %s Betyg: %s", title, rating));
+			}
+		}
+		else {
+			System.out.println("Inga filmer hittades.");
+		}
+	}
 }

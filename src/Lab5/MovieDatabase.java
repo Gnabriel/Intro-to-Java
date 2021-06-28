@@ -7,11 +7,15 @@ import java.util.List;
 import java.util.ArrayList;
 import java.io.IOException;
 import java.nio.file.StandardOpenOption;
+import java.util.Arrays;
 
+/**
+* A database interface.
+*/
 interface Database {
     public void addMovie(String title, int rating);
-    public String searchTitle(String title);
-    public String searchRating(int rating);
+    public List<List<String>> searchTitle(String title);
+    public List<List<String>> searchRating(int rating);
 }
 
 /**
@@ -40,15 +44,25 @@ public class MovieDatabase implements Database {
             if(!Files.exists(path)) {
                 Files.createFile(path);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return path;
     }
 
-    private void readFile() {
-        
+    /**
+    * Reads all content of the database file.
+    * 
+    * @return       List with each line in the database
+    */
+    private List<String> readDatabase() {
+        List<String> databaseContent = new ArrayList<>();
+        try {
+            databaseContent = Files.readAllLines(this._databasePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return databaseContent;
     }
 
     /**
@@ -69,11 +83,52 @@ public class MovieDatabase implements Database {
         }
     }
 
-    public String searchTitle(String title) {
-        return ".";
+    /**
+    * Searches the database for a string title query.
+    * 
+    * @param titleQuery		title to search for
+    * @return               list of movies found by the query
+    */
+    public List<List<String>> searchTitle(String titleQuery) {
+        List<String> databaseContent = this.readDatabase();
+        List<String> movieInfo = new ArrayList<>();
+        List<List<String>> moviesFound = new ArrayList<>();
+        for (String movie : databaseContent) {
+            // Check if not end of the file.
+            if (!movie.isEmpty()) {
+                movieInfo = Arrays.asList(movie.split(","));
+                String title = movieInfo.get(0);
+                // Search non-case sensitive.
+                if (title.toLowerCase().contains(titleQuery.toLowerCase())) {
+                    moviesFound.add(movieInfo);
+                }
+            }
+        }
+        // Returns empty array if query not found.
+        return moviesFound;
     }
 
-    public String searchRating(int rating) {
-        return ".";
+    /**
+    * Searches the database for an int rating query.
+    * 
+    * @param ratingQuery    rating to search for
+    * @return               list of movies found by the query
+    */
+    public List<List<String>> searchRating(int ratingQuery) {
+        List<String> databaseContent = this.readDatabase();
+        List<String> movieInfo = new ArrayList<>();
+        List<List<String>> moviesFound = new ArrayList<>();
+        for (String movie : databaseContent) {
+            // Check if not end of the file.
+            if (!movie.isEmpty()) {
+                movieInfo = Arrays.asList(movie.split(","));
+                int rating = Integer.parseInt(movieInfo.get(1));
+                if (rating >= ratingQuery) {
+                    moviesFound.add(movieInfo);
+                }
+            }
+        }
+        // Returns empty array if query not found.
+        return moviesFound;
     }
 }
