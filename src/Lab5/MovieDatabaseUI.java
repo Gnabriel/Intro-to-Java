@@ -1,4 +1,4 @@
-package Lab5;
+package lab5;
 
 import java.util.Scanner;
 /**
@@ -6,13 +6,16 @@ import java.util.Scanner;
  */
 public class MovieDatabaseUI {
 	private Scanner _scanner;
+	private Database _movieDb; 
 	
 	/**
 	 * Construct a MovieDatabaseUI.
+	 * @param movieDb		object of Database interface
 	 */
-	public MovieDatabaseUI() {
-		
+	public MovieDatabaseUI(Database movieDb) {
+		this._movieDb = movieDb;
 	}
+
 	/**
 	 * Start the movie database UI.
 	 */
@@ -27,7 +30,7 @@ public class MovieDatabaseUI {
 			input = getNumberInput(_scanner, 1, 4, getMainMenu());
 
 			switch(input) {
-			case 1: searchTitel(); break;
+			case 1: searchTitle(); break;
 			case 2: searchReviewScore(); break;
 			case 3: addMovie(); break;
 			case 4: quit = true; 			
@@ -36,6 +39,7 @@ public class MovieDatabaseUI {
 		//Close scanner to free resources
 		_scanner.close();
 	}
+
 	/**
 	 * Get input and translate it to a valid number.
 	 * 
@@ -57,18 +61,19 @@ public class MovieDatabaseUI {
 				input = -1;
 			}
 			if(input < min || input > max) {
-				System.out.println("Ogiltigt v�rde.");
+				System.out.println("Ogiltigt värde.");
 				input = -1;
 			}			
 		}			
 		return input;
 	}
+
 	/**
 	 * Get search string from user, search title in the movie 
 	 * database and present the search result.
 	 */
-	private void searchTitel() {
-		System.out.print("Ange s�kord: ");
+	private void searchTitle() {
+		System.out.print("Ange sökord: ");
 		String title = _scanner.nextLine().trim();
 
 		//TODO: Add call to search movie database based on input
@@ -76,6 +81,7 @@ public class MovieDatabaseUI {
 		//TODO: Present results to user
 		
 	}
+
 	/**
 	 * Get search string from user, search review score in the movie 
 	 * database and present the search result.
@@ -87,7 +93,8 @@ public class MovieDatabaseUI {
 				
 		//TODO: Present results to user	
 		
-	}	
+	}
+
 	/**
 	 * Get information from user on the new movie and add
 	 * it to the database.
@@ -96,10 +103,9 @@ public class MovieDatabaseUI {
 		System.out.print("Titel: ");
 		String title = _scanner.nextLine().trim();
 		int reviewScore = getNumberInput(_scanner, 1, 5, "Betyg (1 - 5): ");
+		_movieDb.addMovie(title, reviewScore);
+	}
 
-		//TODO: Add call to add movie into database	
-		
-	}	
 	/**
 	 * Return the main menu text.
 	 * 
@@ -107,9 +113,9 @@ public class MovieDatabaseUI {
 	 */
 	private String getMainMenu() {
 		return  "-------------------\n" +
-				"1. S�k p� titel\n" +
-				"2. S�k p� betyg\n" +	
-				"3. L�gg till film\n" +
+				"1. Sök på titel\n" +
+				"2. Sök på betyg\n" +	
+				"3. Lägg till film\n" +
 				"-------------------\n" + 
 				"4. Avsluta";
 	}	
