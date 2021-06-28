@@ -1,14 +1,14 @@
-Terminator 2 - Domedagen, 4
-Nyckeln till frihet, 5
-Pulp fiction, 4
-Fight club, 4
-Matrix, 5
-När lammen tystnar, 4
-De misstänkta, 5
-American History X, 4
-Gladiator, 4
-Test-1, 1
-Test-2, 2
-Test-3, 3
-Test-4, 4
-Test-5, 5
+Terminator 2 - Domedagen,4
+Nyckeln till frihet,5
+Pulp fiction,4
+Fight club,4
+Matrix,5
+När lammen tystnar,4
+De misstänkta,5
+American History X,4
+Gladiator,4
+Test-1,1
+Test-2,2
+Test-3,3
+Test-4,4
+Test-5,5
