@@ -73,7 +73,7 @@ public class MovieDatabase implements Database {
     */
     public void addMovie(String title, int reviewScore) {
         // Create string with title and score.
-        String movieInfo = String.format("%s, %d%n", title, reviewScore);
+        String movieInfo = String.format("%s,%d%n", title, reviewScore);
         try {
             // Append string to database file.
             Files.write(this._databasePath, movieInfo.getBytes(), StandardOpenOption.APPEND);
