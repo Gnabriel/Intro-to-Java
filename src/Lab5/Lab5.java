@@ -1,4 +1,4 @@
-package Lab5;
+package lab5;
 
 /**
  * Entry point for a movie database as part of an assignment 
@@ -11,7 +11,9 @@ public class Lab5 {
 	 * @param args not used
 	 */
 	public static void main(String[] args) {
-		//Construct and start the UI
-		new MovieDatabaseUI().startUI();
+		// Construct the database at specifield file path.
+		MovieDatabase movieDb = new MovieDatabase("./src/lab5/movie_db.txt");
+		// Construct and start the UI.
+		new MovieDatabaseUI(movieDb).startUI();
 	}
 }
