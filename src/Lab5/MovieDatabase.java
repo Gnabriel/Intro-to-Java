@@ -67,13 +67,15 @@ public class MovieDatabase implements Database {
 
     /**
     * Adds a movie to the database file.
+    * Each line represents one movie, formatted as:
+    * "title,rating"
     * 
     * @param title			title of the movie
     * @param reviewScore	rating of the movie
     */
-    public void addMovie(String title, int reviewScore) {
+    public void addMovie(String title, int rating) {
         // Create string with title and score.
-        String movieInfo = String.format("%s,%d%n", title, reviewScore);
+        String movieInfo = String.format("%s,%d%n", title, rating);
         try {
             // Append string to database file.
             Files.write(this._databasePath, movieInfo.getBytes(), StandardOpenOption.APPEND);
