@@ -1,11 +1,15 @@
 import java.util.*;
 
+/**
+ * Text-based program which lets the user input a number of integers in
+ * the terminal and then outputs the mean of the integers and how many of
+ * the integers that are unique.
+ * 
+ * Assignment 3 in the course Inledande programmering med Java VT2021.
+ *
+ * @author Gabriel Ellebrink
+ */
 public class Lab3 {
-    /**
-     * Assignment 3 in the course Inledande programmering med Java VT2021.
-     *
-     * @author Gabriel Ellebrink
-     */
     public static void main(String[] args) {
         // Scanner to read inputs.
         Scanner scanner = new Scanner(System.in);
@@ -15,13 +19,13 @@ public class Lab3 {
         printIntegersInfo(integerCount, integers);
     }
 
+    /**
+     * Gets an integer as input from the user.
+     * @param scanner       Scanner object to receive inputs.
+     * @param prompt        user instructions for the input.
+     * @return              integer provided by the user.
+     */
     private static int getIntegerInput(Scanner scanner, String prompt) {
-        /**
-         * Gets an integer as input from the user.
-         * @param scanner       Scanner object to receive inputs.
-         * @param prompt        user instructions for the input.
-         * @return              integer provided by the user.
-         */
         int integerInput;
         while (true) {
             // Print input instructions.
@@ -40,22 +44,22 @@ public class Lab3 {
         return integerInput;
     }
 
+    /**
+     * Gets the number of integers that the user wants to provide.
+     * @param scanner       Scanner object to receive inputs.
+     * @return              integer quantity.
+     */
     private static int getIntegerCount(Scanner scanner) {
-        /**
-         * Gets the number of integers that the user wants to provide.
-         * @param scanner       Scanner object to receive inputs.
-         * @return              integer quantity.
-         */
         return getIntegerInput(scanner, "Hur många antal vill du ange:");
     }
 
+    /**
+     * Gets a specified number of integers as input from the user.
+     * @param scanner           Scanner object to receive inputs.
+     * @param integerCount      integer quantity.
+     * @return                  all integers provided by the user.
+     */
     public static int[] getIntegers(Scanner scanner, int integerCount) {
-        /**
-         * Gets a specified number of integers as input from the user.
-         * @param scanner           Scanner object to receive inputs.
-         * @param integerCount      integer quantity.
-         * @return                  all integers provided by the user.
-         */
         int integer;
         int[] integers = new int[integerCount];
         for (int i = 0; i < integerCount; i++) {
@@ -65,13 +69,13 @@ public class Lab3 {
         return integers;
     }
 
+    /**
+     * Gets the unique elements from an array of integers.
+     * @param integerCount      integer quantity.
+     * @param integers          array of integers.
+     * @return                  unique integers in the array.
+     */
     private static List<Integer> getUniqueIntegers(int integerCount, int[] integers) {
-        /**
-         * Gets the unique elements from an array of integers.
-         * @param integerCount      integer quantity.
-         * @param integers          array of integers.
-         * @return                  unique integers in the array.
-         */
         boolean unique;
         List<Integer> uniqueIntegers = new ArrayList<>();
         for (int i = 0; i < integerCount; i++) {
@@ -89,12 +93,12 @@ public class Lab3 {
         return uniqueIntegers;
     }
 
+    /**
+     * Prints count, number of unique elements and mean of an array of integers..
+     * @param integerCount      integer quantity.
+     * @param integers          array of integers.
+     */
     private static void printIntegersInfo(int integerCount, int[] integers) {
-        /**
-         * Prints count, number of unique elements and mean of an array of integers..
-         * @param integerCount      integer quantity.
-         * @param integers          array of integers.
-         */
         // Print the count.
         System.out.println(String.format("Du angav %s tal.", integerCount));
 
